@@ -61,7 +61,6 @@ export function TestimonialsSection() {
                 </motion.div>
                 <div className="ml-4">
                   <h3 className="font-bold text-gray-800">{testimonial.name}</h3>
-                  <p className="text-sm text-gray-500">{testimonial.date}</p>
                 </div>
               </div>
               <motion.div 

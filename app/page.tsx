@@ -2,7 +2,6 @@ import { Navbar } from "@/components/landing/navbar";
 import { HeroSection } from "@/components/landing/hero-section";
 import { ServicesSection } from "@/components/landing/services-section";
 import { AboutSection } from "@/components/landing/about-section";
-import { WhyUsSection } from "@/components/landing/why-us-section";
 import { TestimonialsSection } from "@/components/landing/testimonials-section";
 import { PartnersSection } from "@/components/landing/partners-section";
 import { SolarInfoSection } from "@/components/landing/solar-info-section";

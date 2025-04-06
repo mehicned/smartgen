@@ -31,7 +31,7 @@ interface ParticlesBackgroundProps {
 export function ParticlesBackground({
   className = "",
   quantity = 50,
-  color = "#9DB946",
+  color = "#83BC4C",
   background = "transparent",
   minSize = 1,
   maxSize = 4,
@@ -203,10 +203,15 @@ export function ParticlesBackground({
     
     // Clean up
     return () => {
+      // Storing a reference to the current canvas
+      const currentCanvas = canvasRef.current;
+      
       window.removeEventListener("resize", resizeCanvas);
       if (responsive) {
         window.removeEventListener("mousemove", handleMouseMove);
-        canvasRef.current?.removeEventListener("mouseleave", handleMouseLeave);
+        if (currentCanvas) {
+          currentCanvas.removeEventListener("mouseleave", handleMouseLeave);
+        }
       }
       cancelAnimationFrame(animationRef.current);
     };
