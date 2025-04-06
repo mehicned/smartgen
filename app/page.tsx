@@ -1,12 +1,13 @@
 import { Navbar } from "@/components/landing/navbar";
 import { HeroSection } from "@/components/landing/hero-section";
-import { SocialProof } from "@/components/landing/social-proof";
-import { FeatureSection } from "@/components/landing/feature-section";
-import { ProblemSolution } from "@/components/landing/problem-solution";
-import { TestimonialSection } from "@/components/landing/testimonial-section";
-import { TrustSignals } from "@/components/landing/trust-signals";
+import { ServicesSection } from "@/components/landing/services-section";
+import { AboutSection } from "@/components/landing/about-section";
+import { WhyUsSection } from "@/components/landing/why-us-section";
+import { TestimonialsSection } from "@/components/landing/testimonials-section";
+import { PartnersSection } from "@/components/landing/partners-section";
+import { SolarInfoSection } from "@/components/landing/solar-info-section";
 import { FaqSection } from "@/components/landing/faq-section";
-import { CtaSection } from "@/components/landing/cta-section";
+import { ContactSection } from "@/components/landing/contact-section";
 import { Footer } from "@/components/landing/footer";
 
 export default function Home() {
@@ -20,26 +21,26 @@ export default function Home() {
         {/* Hero Section */}
         <HeroSection />
         
-        {/* Social Proof Section */}
-        <SocialProof />
+        {/* Services Section */}
+        <ServicesSection />
         
-        {/* Feature Section */}
-        <FeatureSection />
+        {/* About Section */}
+        <AboutSection />
         
-        {/* Problem & Solution Section */}
-        <ProblemSolution />
+        {/* Solar Info Section */}
+        <SolarInfoSection />
         
-        {/* Testimonial Section */}
-        <TestimonialSection />
+        {/* Partners Section */}
+        <PartnersSection />
         
-        {/* Trust Signals Section */}
-        <TrustSignals />
+        {/* Testimonials Section */}
+        <TestimonialsSection />
         
         {/* FAQ Section */}
         <FaqSection />
         
-        {/* CTA Section */}
-        <CtaSection />
+        {/* Contact Section */}
+        <ContactSection />
       </main>
       
       {/* Footer */}

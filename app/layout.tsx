@@ -41,9 +41,9 @@ const ppMori = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Modern Landing Page | Clean Boilerplate",
-  description: "A clean, modern landing page boilerplate built with Next.js, Tailwind CSS, and Radix UI",
-  keywords: ["landing page", "next.js", "tailwind css", "radix ui", "boilerplate"],
+  title: 'SmartGen Solar | Queensland Solar Panel Installation',
+  description: 'SmartGen Solar provides top-quality solar panel installation across Queensland. Save up to 80% on your electricity bills with our solar solutions.',
+  keywords: ["solar power", "solar panels", "battery storage", "residential solar", "commercial solar", "australia", "clean energy"],
 };
 
 export default function RootLayout({
@@ -52,7 +52,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body className={`${ppMori.variable} font-sans antialiased`}>
         {children}
       </body>

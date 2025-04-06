@@ -1,128 +1,161 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function Navbar() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  const navigation = [
-    { name: "Features", href: "#features" },
-    { name: "Solutions", href: "#solutions" },
-    { name: "Testimonials", href: "#testimonials" },
-    { name: "Trust", href: "#trust-signals" },
-    { name: "FAQ", href: "#faq" },
-  ];
+  // Handle scroll event to change navbar style
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-      <div className="container flex h-16 items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-md bg-primary-600 flex items-center justify-center">
-            <span className="text-white font-semibold">B</span>
-          </div>
-          <span className="text-xl font-semibold">Boilerplate</span>
-        </Link>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
-            >
-              {item.name}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Desktop CTA */}
-        <div className="hidden md:flex items-center gap-4">
-          <Link href="/sign-in" className="text-sm font-medium text-gray-600 hover:text-gray-900">
-            Sign in
-          </Link>
-          <Link href="/get-started" className="btn btn-primary rounded-md">
-            Get started
-          </Link>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <button
-          type="button"
-          className="md:hidden -m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-expanded={mobileMenuOpen}
-        >
-          <span className="sr-only">{mobileMenuOpen ? "Close menu" : "Open menu"}</span>
-          {mobileMenuOpen ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
+    <header
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-white shadow-md py-4"
+          : "bg-transparent py-6"
+      }`}
+    >
+      <div className="container">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="relative flex items-center">
+            <div className="h-16 w-48 relative">
+              <Image 
+                src="/smartgen.avif" 
+                alt="SmartGen Solar" 
+                fill
+                className="object-contain"
+                priority
               />
-            </svg>
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          )}
-        </button>
-      </div>
+            </div>
+          </Link>
 
-      {/* Mobile menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden border-t border-gray-200">
-          <div className="container space-y-1 px-4 py-6">
-            {navigation.map((item) => (
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-8">
+            {[
+              { name: "Home", href: "#" },
+              { name: "Services", href: "#services" },
+              { name: "About", href: "#about" },
+              { name: "Solar Info", href: "#solar-info" },
+              { name: "Partners", href: "#partners" },
+              { name: "Testimonials", href: "#testimonials" },
+              { name: "FAQ", href: "#faq" },
+            ].map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="block py-2 text-base font-medium text-gray-900"
-                onClick={() => setMobileMenuOpen(false)}
+                className={`text-sm font-medium transition-colors hover:text-primary ${
+                  isScrolled ? "text-gray-900" : "text-white"
+                }`}
               >
                 {item.name}
               </Link>
             ))}
-            <div className="mt-6 pt-6 border-t border-gray-200">
-              <Link
-                href="/sign-in"
-                className="block py-2 text-base font-medium text-gray-900"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Sign in
-              </Link>
-              <Link
-                href="/get-started"
-                className="mt-4 w-full flex items-center justify-center btn btn-primary rounded-md"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Get started
-              </Link>
-            </div>
+          </nav>
+
+          {/* CTA Button */}
+          <div className="hidden md:block">
+            <Link
+              href="#contact"
+              className="bg-primary hover:bg-primary-600 text-white font-medium px-5 py-3 rounded-md transition-colors"
+            >
+              Get a Quote
+            </Link>
           </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2 rounded-md focus:outline-none"
+            aria-label="Toggle menu"
+          >
+            <svg
+              className={`w-6 h-6 ${isScrolled ? "text-gray-900" : "text-white"}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              {isOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
+            </svg>
+          </button>
         </div>
-      )}
+      </div>
+
+      {/* Mobile Navigation */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-white border-t border-gray-200 mt-2"
+          >
+            <div className="container py-4">
+              <nav className="flex flex-col space-y-4">
+                {[
+                  { name: "Home", href: "#" },
+                  { name: "Services", href: "#services" },
+                  { name: "About", href: "#about" },
+                  { name: "Solar Info", href: "#solar-info" },
+                  { name: "Partners", href: "#partners" },
+                  { name: "Testimonials", href: "#testimonials" },
+                  { name: "FAQ", href: "#faq" },
+                ].map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="text-gray-900 font-medium text-lg py-2 hover:text-primary transition-colors"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+                <Link
+                  href="#contact"
+                  className="bg-primary hover:bg-primary-600 text-white font-medium px-5 py-3 rounded-md transition-colors inline-block text-center mt-2"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Get a Quote
+                </Link>
+              </nav>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 } 
